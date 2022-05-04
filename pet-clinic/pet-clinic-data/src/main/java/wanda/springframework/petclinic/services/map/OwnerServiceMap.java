@@ -1,11 +1,13 @@
 package wanda.springframework.petclinic.services.map;
 
 import java.util.Set;
+import org.springframework.stereotype.Service;
 import wanda.springframework.petclinic.model.Owner;
-import wanda.springframework.petclinic.services.CrudService;
+import wanda.springframework.petclinic.services.OwnerService;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements
-    CrudService<Owner, Long> {
+@Service
+public class OwnerServiceMap extends AbstractMapService<Owner> implements
+    OwnerService {
 
   @Override
   public Set<Owner> findAll() {
@@ -24,11 +26,16 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements
 
   @Override
   public Owner save(Owner object) {
-    return super.save(object.getId(), object);
+    return super.save(object);
   }
 
   @Override
   public Owner findById(Long id) {
     return super.findById(id);
+  }
+
+  @Override
+  public Owner findByLastName(String lastName) {
+    return null;
   }
 }
