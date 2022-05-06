@@ -4,10 +4,17 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import wanda.springframework.petclinic.model.Owner;
 import wanda.springframework.petclinic.services.OwnerService;
+import wanda.springframework.petclinic.services.PetService;
 
 @Service
-public class OwnerServiceMap extends AbstractMapService<Owner> implements
+public class OwnerMapService extends AbstractMapService<Owner> implements
     OwnerService {
+
+  private final PetService petService;
+
+  public OwnerMapService(PetService petService) {
+    this.petService = petService;
+  }
 
   @Override
   public Set<Owner> findAll() {
@@ -26,6 +33,8 @@ public class OwnerServiceMap extends AbstractMapService<Owner> implements
 
   @Override
   public Owner save(Owner object) {
+    if (object == null) return null;
+    object.getPets().forEach(petService::save);
     return super.save(object);
   }
 

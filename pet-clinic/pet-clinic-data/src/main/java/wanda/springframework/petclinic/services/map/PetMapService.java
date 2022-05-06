@@ -4,9 +4,15 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import wanda.springframework.petclinic.model.Pet;
 import wanda.springframework.petclinic.services.PetService;
+import wanda.springframework.petclinic.services.PetTypeService;
 
 @Service
-public class PetServiceMap extends AbstractMapService<Pet> implements PetService {
+public class PetMapService extends AbstractMapService<Pet> implements PetService {
+  private final PetTypeService petTypeService;
+
+  public PetMapService(PetTypeService petTypeService) {
+    this.petTypeService = petTypeService;
+  }
 
   @Override
   public Set<Pet> findAll() {
@@ -25,7 +31,11 @@ public class PetServiceMap extends AbstractMapService<Pet> implements PetService
 
   @Override
   public Pet save(Pet object) {
-    return super.save(object);
+    if (object.getPetType() == null) { // this pet must have a PetType
+      throw new RuntimeException("PetType is required");
+    }
+    this.petTypeService.save(object.getPetType()); // save the PetType
+    return super.save(object); // save the Pet
   }
 
   @Override

@@ -1,5 +1,7 @@
 package wanda.springframework.petclinic.model;
 
+import wanda.springframework.petclinic.services.PetTypeService;
+
 public class PetType extends BaseEntity {
   private String name;
 
