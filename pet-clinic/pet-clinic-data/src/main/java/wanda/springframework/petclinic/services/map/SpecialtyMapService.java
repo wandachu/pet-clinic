@@ -1,11 +1,13 @@
 package wanda.springframework.petclinic.services.map;
 
 import java.util.Set;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import wanda.springframework.petclinic.model.Specialty;
 import wanda.springframework.petclinic.services.SpecialtyService;
 
 @Service
+@Profile({"default", "map"})
 public class SpecialtyMapService extends AbstractMapService<Specialty> implements
     SpecialtyService {
 

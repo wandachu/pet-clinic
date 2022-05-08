@@ -1,11 +1,13 @@
 package wanda.springframework.petclinic.services.map;
 
 import java.util.Set;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import wanda.springframework.petclinic.model.PetType;
 import wanda.springframework.petclinic.services.PetTypeService;
 
 @Service
+@Profile({"default", "map"})
 public class PetTypeMapService extends AbstractMapService<PetType> implements PetTypeService {
 
   @Override
