@@ -3,7 +3,7 @@ package wanda.springframework.petclinic.services.map;
 import wanda.springframework.petclinic.model.Visit;
 import wanda.springframework.petclinic.services.VisitService;
 
-public class VisitServiceMap extends AbstractMapService<Visit> implements VisitService {
+public class VisitMapService extends AbstractMapService<Visit> implements VisitService {
 
   @Override
   public Visit save(Visit object) {

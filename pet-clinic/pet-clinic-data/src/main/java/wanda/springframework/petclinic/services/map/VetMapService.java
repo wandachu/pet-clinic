@@ -7,10 +7,10 @@ import wanda.springframework.petclinic.services.SpecialtyService;
 import wanda.springframework.petclinic.services.VetService;
 
 @Service
-public class VetServiceMap extends AbstractMapService<Vet> implements VetService {
+public class VetMapService extends AbstractMapService<Vet> implements VetService {
   private SpecialtyService specialtyService;
 
-  public VetServiceMap(SpecialtyService specialtyService) {
+  public VetMapService(SpecialtyService specialtyService) {
     this.specialtyService = specialtyService;
   }
 
