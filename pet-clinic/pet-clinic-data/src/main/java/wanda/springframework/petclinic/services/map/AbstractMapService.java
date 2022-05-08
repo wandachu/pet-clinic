@@ -6,19 +6,23 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import wanda.springframework.petclinic.model.BaseEntity;
+import wanda.springframework.petclinic.services.CrudService;
 
-public abstract class AbstractMapService<T extends BaseEntity> {
-  protected Map<Long, T> map = new HashMap<>();
+public abstract class AbstractMapService<T extends BaseEntity> implements CrudService<T> {
+  protected final Map<Long, T> map = new HashMap<>();
 
-  Set<T> findAll() {
+  @Override
+  public Set<T> findAll() {
     return new HashSet<>(map.values());
   }
 
-  T findById(Long id) {
+  @Override
+  public T findById(Long id) {
     return map.get(id);
   }
 
-  T save(T object) {
+  @Override
+  public T save(T object) {
     if (object != null) {
       if (object.getId() == null) {
         object.setId(getNextId());
@@ -30,18 +34,17 @@ public abstract class AbstractMapService<T extends BaseEntity> {
     return object;
   }
 
-  void deleteById(Long id) {
+  @Override
+  public void deleteById(Long id) {
     map.remove(id);
   }
 
-  void delete(T object) {
+  @Override
+  public void delete(T object) {
     map.entrySet().removeIf(entry -> entry.getValue().equals(object));
   }
 
   private Long getNextId() {
-    if (map.isEmpty()) {
-      return 1L;
-    }
-    return Collections.max(map.keySet()) + 1;
+    return map.isEmpty() ? 1L : Collections.max(map.keySet()) + 1;
   }
 }
