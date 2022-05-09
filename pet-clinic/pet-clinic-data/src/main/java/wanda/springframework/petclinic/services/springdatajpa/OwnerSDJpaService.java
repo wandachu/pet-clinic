@@ -14,7 +14,6 @@ public class OwnerSDJpaService extends AbstractJpaService<Owner, OwnerRepository
     super(ownerRepository);
   }
 
-
   @Override
   public Owner findByLastName(String lastName) {
     return repository.findByLastName(lastName);
