@@ -1,6 +1,7 @@
 package wanda.springframework.petclinic.model;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,5 +52,27 @@ public class Owner extends Person {
     this.city = city;
     this.telephone = telephone;
     this.pets = pets;
+  }
+
+  public void addPet(Pet pet) {
+    if (pet != null) {
+      this.getPets().add(pet);
+      pet.setOwner(this);
+    }
+  }
+
+  public Pet getPet(String name) { // not ignoring new
+    return getPet(name, false);
+  }
+
+  public Pet getPet(String name, boolean ignoreNew) {
+    for (Pet pet: pets) {
+      if (!ignoreNew || !pet.isNew()) { // include new. no special handling for newPet
+        if (name.equalsIgnoreCase(pet.getName())) {
+          return pet;
+        }
+      }
+    }
+    return null;
   }
 }
