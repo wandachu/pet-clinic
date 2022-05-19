@@ -1,10 +1,11 @@
 package wanda.springframework.petclinic.services.map;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import wanda.springframework.petclinic.model.Owner;
-import wanda.springframework.petclinic.model.Pet;
 import wanda.springframework.petclinic.services.OwnerService;
 import wanda.springframework.petclinic.services.PetService;
 
@@ -52,5 +53,16 @@ public class OwnerMapService extends AbstractMapService<Owner> implements
                .stream()
                .filter(owner -> owner.getLastName().equalsIgnoreCase(lastName))
                .findFirst().orElse(null);
+  }
+
+  @Override
+  public List<Owner> findAllByLastNameLike(String lastName) {
+    List<Owner> res = new ArrayList<>();
+    for (Owner owner : this.findAll()) {
+      if (owner.getLastName().equalsIgnoreCase(lastName)) {
+        res.add(owner);
+      }
+    }
+    return res;
   }
 }
