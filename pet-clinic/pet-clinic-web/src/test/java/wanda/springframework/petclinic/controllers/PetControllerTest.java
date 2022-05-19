@@ -53,7 +53,7 @@ class PetControllerTest {
     owner = Owner.builder().id(1L).build();
     petTypes = new HashSet<>();
     petTypes.add(PetType.builder().id(1L).name("Dog").build());
-    petTypes.add(PetType.builder().id(1L).name("Cat").build());
+    petTypes.add(PetType.builder().id(2L).name("Cat").build());
 
     mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
   }

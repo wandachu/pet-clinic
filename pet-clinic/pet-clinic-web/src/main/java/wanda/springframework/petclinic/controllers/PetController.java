@@ -52,8 +52,9 @@ public class PetController {
   }
 
   @GetMapping("/pets/new")
-  public String initCreationForm(Model model) {
+  public String initCreationForm(Model model, Owner owner) {
     Pet pet = new Pet();
+    pet.setOwner(owner); // add this so the webpage will display owner's name
     model.addAttribute("pet", pet);
     return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
   }
@@ -68,7 +69,7 @@ public class PetController {
       model.addAttribute("pet", pet);
       return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     } else {
-      pet.setOwner(owner);
+      pet.setOwner(owner); // must reset the relationship when the form is submitted
       petService.save(pet);
       return "redirect:/owners/" + owner.getId();
     }
@@ -81,17 +82,13 @@ public class PetController {
   }
 
   @PostMapping("pets/{petId}/edit")
-  public String processUpdateForm(@Valid @ModelAttribute Pet pet, BindingResult result, Model model, @PathVariable Long petId, @ModelAttribute Owner owner) {
+  public String processUpdateForm(@Valid Pet pet, BindingResult result, Model model, Owner owner) {
     if (result.hasErrors()) {
       model.addAttribute("pet", pet);
       return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     } else {
-      Pet petFound = petService.findById(petId);
-      petFound.setOwner(owner);
-      petFound.setPetType(pet.getPetType());
-      petFound.setName(pet.getName());
-      petFound.setBirthday(pet.getBirthday());
-      petService.save(petFound);
+      pet.setOwner(owner); // must reset the relationship when the form is submitted
+      petService.save(pet);
       return "redirect:/owners/" + owner.getId();
     }
   }

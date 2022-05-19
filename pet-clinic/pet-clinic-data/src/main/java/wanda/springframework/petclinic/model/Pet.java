@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Setter
@@ -36,19 +37,20 @@ public class Pet extends BaseEntity {
   private Owner owner;
 
   @Column(name = "birthday")
-  private LocalDate birthday;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate birthDate;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
   private Set<Visit> visits = new HashSet<>();
 
   @Builder
-  public Pet(Long id, String name, PetType petType, Owner owner, LocalDate birthday,
+  public Pet(Long id, String name, PetType petType, Owner owner, LocalDate birthDate,
       Set<Visit> visits) {
     super(id);
     this.name = name;
     this.petType = petType;
     this.owner = owner;
-    this.birthday = birthday;
+    this.birthDate = birthDate;
 
     if (visits != null) {
       this.visits = visits;

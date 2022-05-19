@@ -47,7 +47,7 @@
         <dd th:text="${pet.name}" />
         <dt>Birth Date</dt>
         <dd
-            th:text="${#temporals.format(pet.birthday, 'yyyy-MM-dd')}" />
+            th:text="${#temporals.format(pet.getBirthDate, 'yyyy-MM-dd')}" />
         <dt>Type</dt>
         <dd th:text="${pet.petType}" />
       </dl>

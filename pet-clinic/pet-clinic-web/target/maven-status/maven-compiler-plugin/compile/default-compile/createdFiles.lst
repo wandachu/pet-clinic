@@ -1,5 +1,6 @@
 wanda\springframework\petclinic\controllers\VetController.class
 wanda\springframework\petclinic\controllers\IndexController.class
+wanda\springframework\petclinic\controllers\PetController.class
 wanda\springframework\petclinic\PetClinicApplication.class
 wanda\springframework\petclinic\bootstrap\DataLoader.class
 wanda\springframework\petclinic\controllers\OwnerController.class
